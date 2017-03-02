@@ -201,6 +201,183 @@ $(document).ready(function () {
 </div>
 <div id="delete" class="section level4">
 <h4>DELETE</h4>
+<ul>
+<li>similar to UPDATE, must identify WHERE, or entire selection will be deleted!</li>
+<li>DELETE FROM table1 WHERE column &gt; 5</li>
+<li>to delete all without deleting the table</li>
+<li>DELETE FROM table1, or, DELETE * FROM table1</li>
+</ul>
+</div>
+<div id="select-top" class="section level4">
+<h4>SELECT TOP</h4>
+<ul>
+<li>used to specify number of records to return</li>
+<li>can be useful on large tables with thousands of records. (not all databases support SELECT TOP)</li>
+<li>different syntax depending</li>
+<li>SQL server:</li>
+<li>SELECT TOP ###|percent column_names FROM table1</li>
+<li>SELECT TOP 50 PERCENT * FROM Customers</li>
+<li>MySQL server:</li>
+<li>SELECT col1 FROM table1 LIMIT ##</li>
+</ul>
+</div>
+<div id="select-like" class="section level4">
+<h4>SELECT LIKE</h4>
+<ul>
+<li>used to search for a specified pattern in a column</li>
+<li>SELECT col1 FROM table1 WHERE col1 LIKE pattern</li>
+<li>Example:
+<ul>
+<li>SELECT * FROM Customers WHERE City LIKE ‘s%’ (this selects all customers with a City name ending with letter s)</li>
+<li>SELECT * FROM Customers WHERE Country LIKE ‘%land%’ (this selects all customers with Country that has ‘land’ in name)</li>
+</ul></li>
+<li>% sign is used to define wildcards (missing letters) both before and after a pattern</li>
+<li>you can use NOT to select records that do NOT contain the pattern
+<ul>
+<li>SELECT * FROM Customers WHERE Country NOT LIKE ‘%land%’ (this selects all customers with Country that do NOT have ‘land’ in name)</li>
+</ul></li>
+</ul>
+</div>
+<div id="in" class="section level4">
+<h4>IN</h4>
+<ul>
+<li>IN allows you to specify multiple values in a WHERE clause</li>
+<li>SELECT col1 FROM table1 WHERE col1 IN (v1,v2,v3…)</li>
+</ul>
+</div>
+<div id="between" class="section level4">
+<h4>BETWEEN</h4>
+<ul>
+<li>BETWEEN allows you to specify multiple values in a range in a WHERE clause</li>
+<li>SELECT col1 FROM table1 WHERE col1 BETWEEN v1 AND v2</li>
+<li>you can add NOT to specify not in the range
+<ul>
+<li>SELECT * FROM Products WHERE (Price BETWEEN 10 AND 20) AND NOT CategoryID IN (1,2,3);</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="statements-joins" class="section level3">
+<h3>Statements JOINS</h3>
+<div id="join" class="section level4">
+<h4>JOIN</h4>
+<ul>
+<li>SQL JOIN is used to combine rows from two or more tables, based on a common field between them</li>
+<li><p>SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate<br />
+FROM Orders<br />
+INNER JOIN Customers<br />
+ON Orders.CustomerID=Customers.CustomerID;</p></li>
+<li>There are different types of JOINS
+<ul>
+<li>INNER JOIN: Returns all rows when there is at least one match in BOTH tables</li>
+<li>LEFT JOIN: Return all rows from the left table, and the matched rows from the right table</li>
+<li>RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table</li>
+<li>FULL JOIN: Return all rows when there is a match in ONE of the tables</li>
+</ul></li>
+</ul>
+</div>
+<div id="inner-join-join-are-the-same" class="section level4">
+<h4>INNER JOIN (JOIN) are the same</h4>
+<ul>
+<li>The INNER JOIN keyword selects all rows from both tables as long as there is a match between the columns. If there are rows in the “Customers” table that do not have matches in “Orders”, these customers will NOT be listed.</li>
+</ul>
+<p>SELECT column_name(s)<br />
+FROM table1<br />
+INNER JOIN table2<br />
+ON table1.column_name=table2.column_name;</p>
+<p>OR</p>
+<p>SELECT column_name(s)<br />
+FROM table1<br />
+JOIN table2<br />
+ON table1.column_name=table2.column_name;</p>
+</div>
+<div id="left-join" class="section level4">
+<h4>LEFT JOIN</h4>
+<ul>
+<li>The LEFT JOIN returns all rows from the left table (table1) with the matching rows in the right table (table2)</li>
+<li>It will keep everything in table 1 and only select stuff from table 2 that matches on selection criterion</li>
+</ul>
+<p>SELECT column_name(s)<br />
+FROM table1<br />
+LEFT JOIN table2<br />
+ON table1.column_name=table2.column_name;</p>
+</div>
+<div id="right-join" class="section level4">
+<h4>RIGHT JOIN</h4>
+<ul>
+<li>The RIGHT JOIN returns all rows from the right table (table2) with the matching rows in the left table (table1)</li>
+<li>It will keep everything in table 2 and only select stuff from table 1 that matches on selection criterion</li>
+</ul>
+<p>SELECT column_name(s)<br />
+FROM table1<br />
+RIGHT JOIN table2<br />
+ON table1.column_name=table2.column_name;</p>
+</div>
+<div id="full-outer-join" class="section level4">
+<h4>FULL OUTER JOIN</h4>
+<ul>
+<li>returns all rows from left and right table</li>
+<li>combines the result of both LEFT and RIGHT joins</li>
+<li>The FULL OUTER JOIN keyword returns all the rows from the left table (Customers), and all the rows from the right table (Orders).</li>
+<li>If there are rows in “Customers” that do not have matches in “Orders”, or if there are rows in “Orders” that do not have matches in “Customers”, those rows will be listed as well.</li>
+</ul>
+<p>SELECT Customers.CustomerName, Orders.OrderID<br />
+FROM Customers<br />
+FULL OUTER JOIN Orders<br />
+ON Customers.CustomerID=Orders.CustomerID<br />
+ORDER BY Customers.CustomerName;</p>
+</div>
+</div>
+<div id="statement-tools" class="section level3">
+<h3>Statement tools</h3>
+<div id="wildcard-characters" class="section level4">
+<h4>Wildcard characters</h4>
+<ul>
+<li>wildcard characters are used with the SQL LIKE operator</li>
+<li>used to search for data within a table
+<ul>
+<li>% : substitute for zero or more characters</li>
+<li>_ : single character</li>
+<li>“[skjdf]”: sets and ranges of characters to match</li>
+<li>“[^charlist]”, or ‘[charlist]’ Matches only a character not specified in bracket</li>
+<li>see above for some examples, here are more.</li>
+<li>SELECT * FROM Customers WHERE City LIKE ’_erlin’; (this would mean we want any character followed by erlin.)</li>
+<li>SELECT * FROM Customers WHERE City LIKE ‘L_n_on’; (patterns with any characters where _ are. )</li>
+<li>SELECT * FROM Customers WHERE City LIKE ‘[bsp%]’; (selects all customers with a City starting with b,s,or p)</li>
+<li>SELECT * FROM Customers WHERE City LIKE ‘[a-c]’; (selects all customers with a City starting letters between a-c)</li>
+<li>SELECT * FROM Customers WHERE City LIKE ‘[!a-c]’; (selects all customers with a City not starting letters between a-c)</li>
+<li>SELECT * FROM Customers WHERE City NOT LIKE ‘[a-c]’; (selects all customers with a City not starting letters between a-c)</li>
+</ul></li>
+</ul>
+</div>
+<div id="injection" class="section level4">
+<h4>INJECTION</h4>
+<ul>
+<li>Injections can be used to destroy a database.</li>
+<li>hackers use these to trick the system, in a sense</li>
+<li>See <a href="https://www.w3schools.com/sql/sql_injection.asp" title="SQL Injection W3 schools">SQL Injections</a></li>
+<li>The only proven way to protect a web site from SQL injection attacks, is to use SQL parameters.</li>
+<li>SQL parameters are values that are added to an SQL query at execution time, in a controlled manner.</li>
+</ul>
+</div>
+<div id="aliases" class="section level4">
+<h4>Aliases</h4>
+<ul>
+<li>used to temporary rename a table or column heading</li>
+<li>SELECT col1 AS alias_name FROM table1</li>
+<li>SELECT col1 FROM table 1 AS alisa_name</li>
+<li><p>SELECT CustomerName, Address+‘,’+City+‘,’+PostalCode+‘,’+Country AS Address FROM Customers; (this creates a new column named Address that combines all this information)</p></li>
+<li>SELECT o.OrderID, o.OrderDate, c.CustomerName<br />
+FROM Customers AS c, Orders AS 0<br />
+WHERE c.CustomerName=“Around the Horn” AND c.CustomerID=o.CustomerID;</li>
+<li>Aliases can be useful when:
+<ul>
+<li>There are more than one table involved in a query</li>
+<li>Functions are used in the query</li>
+<li>Column names are big or not very readable</li>
+<li>Two or more columns are combined together</li>
+</ul></li>
+</ul>
 </div>
 </div>
 </div>
