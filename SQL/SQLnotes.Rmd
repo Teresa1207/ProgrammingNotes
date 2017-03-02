@@ -1,0 +1,77 @@
+---
+title: "SQL"
+author: ""
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SQL Notes {.tabset}
+
+ - SQL is a language for accessing/manipulating databases: Structured Query Language, ANSI standard.
+ - major commands
+ - SELECT, UPDATE, DELETE, INSERT, WHERE
+ - RDBMS stands for Relational Database Management System, this is the basis for SQL, data is stored in objects called tables. 
+ - A table is a collection of related data entries and it consists of columns and rows. 
+tables are identified by names, records are the rows.
+
+
+
+### Statements
+
+ - SQL Statements (not case sensitive)
+ - most important SQL statements: 
+    - SELECT: extracts data from a db
+    - UPDATE: updates data in a db
+    - DELETE: deletes data from a db
+    - INSERT INTO: inserts new data into a db
+    - CREATE DATABASE: creates new database
+    - ALTER DATABASE: modifies a database
+    - CREATE TABLE: creates a table
+    - DROP TABLE: deletes a table
+    - CREATE INDEX: creates an index (search key)
+    - DROP INDEX: deletes an index
+    
+#### SELECT
+
+   - SELECT column1, column2 FROM table1
+   - SELECT * FROM table (selects all the columns)
+   - create a table
+
+#### SELECT DISTINCT: 
+ 
+  - used to return only distinct values, if duplicate values are there, this is how we get rid of them. 
+   - SELECT DISTINCT column2 FROM table1
+
+#### WHERE: used to filter records
+
+   - SELECT column1, column2 FROM table1 WHERE column3 operator function (e.g. >2)
+       operator functions allowed: 
+   - =,<>,>,<, >=,<=, BETWEEN, LIKE, IN (v1,v2)
+
+#### AND/OR 
+
+ - are used to further filter records on one or more conditions, 
+ - use parenthesis to specify order of operation
+
+#### ORDER BY 
+
+ - is used to sort result by keyword (one or more columns) 
+  - separate by commas, use ASC, DESC
+
+#### INSERT INTO: 
+
+ - used to insert new records in a table
+ - INSERT INTO table1 VALUES (v1,v2,v3)
+ - INSERT INTO table1 (col1,col2,col3) VALUES (v1,v2,v3), inserts into rows
+
+#### UPDATE, SET, WHERE 
+ 
+ - Change the value of a record, update existing table
+ - UPDATE table1 SET col1 = value1, col2 = value2,… WHERE col3>5 
+ - if you don’t specify WHERE the whole column will be updated!
+
+#### DELETE 
